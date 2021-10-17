@@ -4,42 +4,44 @@
             <ion-row class="ion-justify-content-center" >
                 <h1> Merci de renseigner les champs suivants</h1>
             </ion-row>
-            <ion-row>
-
-                <ion-input placeholder="Prénom"></ion-input>
-                <ion-input placeholder="Nom"></ion-input>
+            <ion-row class="ion-justify-content-center">
+                <ion-col size-xl="3">
+                    <ion-label>Prénom</ion-label>
+                <ion-input></ion-input>
+                </ion-col>
+                <ion-col size-xl="3">
+                    <ion-label>Nom</ion-label>
+                <ion-input></ion-input>
+                </ion-col>
 
             </ion-row>
-
-
-            <ion-row class="ion-justify-content-center" >
-                <ion-col size="6" style="border: solid red;">
-                    <ion-input placeholder="Date de naissance"></ion-input>
+            <ion-row class="ion-justify-content-center">
+                <ion-col size-xl="6">
+                    <ion-label>Date de naissance</ion-label>
+                    <ion-input></ion-input>
                 </ion-col>
             </ion-row>
             <ion-row class="ion-justify-content-center">
-                <ion-col size="6" style="border: solid red;">
-                <ion-input placeholder="Adresse"></ion-input>
+                <ion-col size-xl="6">
+                    <ion-label>Adresse</ion-label>
+                <ion-input></ion-input>
                 </ion-col>
             </ion-row>
             <ion-row class="ion-justify-content-center">
-                <ion-col size="6" style="border: solid red;">
-                <ion-input placeholder="Ville"></ion-input>
+                <ion-col size-xl="6">
+                    <ion-label>Ville</ion-label>
+                <ion-input></ion-input>
                 </ion-col>
             </ion-row>
             <ion-row class="ion-justify-content-center">
-                <ion-col size="6" style="border: solid red;">
-                <ion-input placeholder="Numéro de téléphone"></ion-input>
+                <ion-col size-xl="6">
+                    <ion-label>Numéro de téléphone</ion-label>
+                <ion-input placeholder="0650..."></ion-input>
                 </ion-col>
             </ion-row>
-
-                <ion-button expand="block">Block Button</ion-button>
-
+                <ion-button expand="block">Valider</ion-button>
         </ion-grid>
-
     </ion-content>
-
-
 </template>
 
 <script lang="ts">
