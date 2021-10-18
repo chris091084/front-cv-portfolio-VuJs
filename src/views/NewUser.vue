@@ -108,12 +108,7 @@ import { defineComponent} from '@vue/runtime-core';
         
         methods: {
             checkForm()  {
-                if (!this.firstname) {
-                    
-                    this.errors.push('hello');            
-      }
-                
-                console.log('hello',this.firstname);
+                //axios
                 
             }
         },
