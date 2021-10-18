@@ -90,6 +90,7 @@
 <script lang="ts">
 import { IonLabel, IonInput,IonButton,IonContent, IonGrid,IonDatetime,IonRow, IonCol } from '@ionic/vue';
 import { defineComponent} from '@vue/runtime-core';
+import axios from "axios";
 
     export default defineComponent({
         components: { IonLabel, IonInput, IonButton, IonContent,IonGrid,IonDatetime,IonRow,IonCol },
@@ -108,7 +109,17 @@ import { defineComponent} from '@vue/runtime-core';
         
         methods: {
             checkForm()  {
-                //axios
+                const dataPost = {
+    "name":"coley",
+    "firstname": "christian",
+    "birthDay": "2021-10-14",
+    "adress":"118 ch du bassard",
+    "city":"chonas l'amballan",
+    "phone":"0650279253"
+}
+                axios
+  .post('https://127.0.0.1:8000/user', dataPost)
+  .then(response => (console.log(response)))
                 
             }
         },
