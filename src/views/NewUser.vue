@@ -1,6 +1,6 @@
 <template>
     <ion-content fullscreen>
-        <form
+        <Form
             id="newUser"
             @submit.prevent="checkForm"
             >
@@ -11,28 +11,41 @@
             <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
             <ion-row class="ion-justify-content-center">
                 <ion-col size-xl="3">
-                    <ion-label>Prénom</ion-label>
+                    <ion-item>
+                    <ion-label position="floating">Prénom</ion-label>
+                    <Field name='firstname' :rules ='firstnameRules'>
                 <ion-input  id="firstname"
                             v-model="firstname"
                             type="text"
                             name="firstname"
-                            required
                 ></ion-input>
+                    </Field>
+                    
+                    <ion-badge color="danger"><ErrorMessage name ='firstname'/></ion-badge>
+                    </ion-item>
+                
                 </ion-col>
                 <ion-col size-xl="3">
-                    <ion-label>Nom</ion-label>
+                    <ion-item>
+                    <ion-label position="floating">Nom</ion-label>
+                     <Field name='name' :rules ='nameRules'>
                 <ion-input id="name"
                            v-model="name"
                            type="text"
                            name="name"
-                           required
                 ></ion-input>
+                     </Field>
+                     <ErrorMessage name ='name'/>
+                    </ion-item>
                 </ion-col>
 
             </ion-row>
             <ion-row class="ion-justify-content-center">
                 <ion-col size-xl="6">
-                    <ion-label>Date de naissance</ion-label>
+                    
+                    <ion-item>
+                     <Field name='birthDay' :rules ='birthDayRules'>
+                         <ion-label position="floating">Date de naissance</ion-label>
                     <ion-datetime id="birthDay"
                                v-model="birthDay"
                                type="date"
@@ -40,36 +53,47 @@
                                   display-format="D-M-YYYY"
                                   picker-format="D-M-YYYY"
                                   value=""
-                                  required
-
                     ></ion-datetime>
+                     </Field>
+                     <ErrorMessage name ='birthDay'/>
+                    </ion-item>
                 </ion-col>
             </ion-row>
             <ion-row class="ion-justify-content-center">
                 <ion-col size-xl="6">
-                    <ion-label>Adresse</ion-label>
+                    <ion-item>
+                    <ion-label position="floating">Adresse</ion-label>
+                     <Field name='adress' :rules ='adressRules'>
                 <ion-input id="adress"
                            v-model="adress"
                            type="text"
                            name="adress"
-                           required
                 ></ion-input>
+                     </Field>
+                     <ErrorMessage name ='adress'/>
+                    </ion-item>
                 </ion-col>
             </ion-row>
             <ion-row class="ion-justify-content-center">
                 <ion-col size-xl="6">
-                    <ion-label>Villev</ion-label>
+                    <ion-item>
+                     <Field name='city' :rules ='cityRules'>
+                    <ion-label position="floating">Ville</ion-label>
                 <ion-input id="city"
                            v-model="city"
                            type="text"
                            name="city"
-                           required
                 ></ion-input>
+                     </Field>
+                     <ErrorMessage name ='city'/>
+                    </ion-item>
                 </ion-col>
             </ion-row>
             <ion-row class="ion-justify-content-center">
                 <ion-col size-xl="6">
-                    <ion-label>Numéro de téléphone</ion-label>
+                    <ion-item>
+                    <ion-label position="floating">Numéro de téléphone</ion-label>
+                     <Field name='phone' :rules ='phoneRules'>
                 <ion-input
                         placeholder="0650..."
                         id="phone"
@@ -78,10 +102,15 @@
                         name="phone"
                         maxlength="10"
                 ></ion-input>
+                     </Field>
+                     <ErrorMessage name ='phone'/>
+                    </ion-item>
                 </ion-col>
             </ion-row>
                 <ion-button expand="block" type="submit">Valider</ion-button>
         </ion-grid>
+
+        
         </form>
 
     </ion-content>
@@ -91,23 +120,34 @@
 import { IonLabel, IonInput,IonButton,IonContent, IonGrid,IonDatetime,IonRow, IonCol } from '@ionic/vue';
 import { defineComponent} from '@vue/runtime-core';
 import axios from "axios";
+import {ErrorMessage, Form, Field} from 'vee-validate';
+import * as yup from 'yup';
 
     export default defineComponent({
-        components: { IonLabel, IonInput, IonButton, IonContent,IonGrid,IonDatetime,IonRow,IonCol },
+        components: { IonLabel, IonInput, IonButton, IonContent,IonGrid,IonDatetime,IonRow,IonCol,ErrorMessage, Form, Field},
         data: () => {
-            return {
-                firstname : '',
-                name :'',
-                birthDay: '',
-                adress: '',
-                city: '',
-                phone: '',
-                errors: ['']
+            
+            return {    
+                firstnameRules: yup.string().required('Merci de remplir ce champ'),
+                nameRules :yup.string().required('Merci de remplir ce champ'),
+                birthDayRules: yup.date().required('Merci de remplir ce champ'),
+                adressrules: yup.string().required('Merci de remplir ce champ'),
+                cityRules: yup.string().required('Merci de remplir ce champ').min(9),
+                phoneRules: yup.string(),
+                errorsRules: ['']
                 
             };
         },
         
         methods: {
+
+      /*       isRequired(value: any) {
+      if (value && value.trim()) {
+          console.log("hello")
+        return true;
+      }
+       return 'This is required';
+    }, */
             checkForm()  {
                 const dataPost = {
     "name":"coley",
