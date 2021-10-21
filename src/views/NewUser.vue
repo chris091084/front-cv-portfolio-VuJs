@@ -8,7 +8,6 @@
             <ion-row class="ion-justify-content-center" >
                 <h1> Merci de renseigner les champs suivants</h1>
             </ion-row>
-            <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
             <ion-row class="ion-justify-content-center">
                 <ion-col size-xl="3">
                     <ion-item>
@@ -35,7 +34,7 @@
                            name="name"
                 ></ion-input>
                      </Field>
-                     <ErrorMessage name ='name'/>
+                     <ion-badge color="danger"><ErrorMessage name ='name'/></ion-badge>
                     </ion-item>
                 </ion-col>
 
@@ -55,7 +54,7 @@
                                   value=""
                     ></ion-datetime>
                      </Field>
-                     <ErrorMessage name ='birthDay'/>
+                     <ion-badge color="danger"><ErrorMessage name ='birthDay'/></ion-badge>
                     </ion-item>
                 </ion-col>
             </ion-row>
@@ -63,14 +62,14 @@
                 <ion-col size-xl="6">
                     <ion-item>
                     <ion-label position="floating">Adresse</ion-label>
-                     <Field name='adress' :rules ='adressRules'>
+                     <Field name='adress' :rules ='adressrules'>
                 <ion-input id="adress"
                            v-model="adress"
                            type="text"
                            name="adress"
                 ></ion-input>
                      </Field>
-                     <ErrorMessage name ='adress'/>
+                     <ion-badge color="danger"><ErrorMessage name ='adress'/></ion-badge>
                     </ion-item>
                 </ion-col>
             </ion-row>
@@ -85,7 +84,7 @@
                            name="city"
                 ></ion-input>
                      </Field>
-                     <ErrorMessage name ='city'/>
+                     <ion-badge color="danger"><ErrorMessage name ='city'/></ion-badge>
                     </ion-item>
                 </ion-col>
             </ion-row>
@@ -103,7 +102,7 @@
                         maxlength="10"
                 ></ion-input>
                      </Field>
-                     <ErrorMessage name ='phone'/>
+                     <ion-badge color="danger"><ErrorMessage name ='phone'/></ion-badge>
                     </ion-item>
                 </ion-col>
             </ion-row>
@@ -140,14 +139,6 @@ import * as yup from 'yup';
         },
         
         methods: {
-
-      /*       isRequired(value: any) {
-      if (value && value.trim()) {
-          console.log("hello")
-        return true;
-      }
-       return 'This is required';
-    }, */
             checkForm()  {
                 const dataPost = {
     "name":"coley",
