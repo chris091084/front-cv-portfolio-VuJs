@@ -4,6 +4,7 @@
             id="newUser"
             @submit="submit"
             :validation-schema="schema"
+            v-slot="{ errors }"
             >
         <ion-grid class="--ion-grid-padding-lg" >
             <ion-row class="ion-justify-content-center" >
@@ -11,7 +12,7 @@
             </ion-row>
             <ion-row class="ion-justify-content-center">
                 <ion-col size-xl="3">
-                    <ion-item>
+                    <ion-item :class="{'ion-invalid': errors.firstname}">
                     <ion-label position="floating">Prénom</ion-label>
                     <Field name='firstname' v-slot="{ field }" >
                 <ion-input  id="firstname"
@@ -20,11 +21,11 @@
                             name="firstname"
                 ></ion-input>
                     </Field>
-                    <ion-badge color="danger"><ErrorMessage name ='firstname'/></ion-badge>
                     </ion-item>
+                    <ion-text color="danger">{{errors.firstname}}</ion-text>
                 </ion-col>
                 <ion-col size-xl="3">
-                    <ion-item>
+                    <ion-item :class="{'ion-invalid': errors.name}">
                     <ion-label position="floating">Nom</ion-label>
                      <Field name='name' v-slot="{ field }" >
                 <ion-input id="name"
@@ -33,15 +34,15 @@
                            v-bind="field"
                 ></ion-input>
                      </Field>
-                     <ion-badge color="danger"><ErrorMessage name ='name'/></ion-badge>
                     </ion-item>
+                    <ion-text color="danger">{{errors.name}}</ion-text>
                 </ion-col>
 
             </ion-row>
             <ion-row class="ion-justify-content-center">
                 <ion-col size-xl="6">
                     
-                    <ion-item>
+                    <ion-item :class="{'ion-invalid': errors.birthDay}">
                      <Field name='birthDay' v-slot="{ field }">
                          <ion-label position="floating">Date de naissance</ion-label>
                     <ion-datetime id="birthDay"
@@ -53,13 +54,13 @@
                                   v-bind="field"
                     ></ion-datetime>
                      </Field>
-                     <ion-badge color="danger"><ErrorMessage name ='birthDay'/></ion-badge>
                     </ion-item>
+                    <ion-text color="danger">{{errors.birthDay}}</ion-text>
                 </ion-col>
             </ion-row>
             <ion-row class="ion-justify-content-center">
                 <ion-col size-xl="6">
-                    <ion-item>
+                    <ion-item :class="{'ion-invalid': errors.adress}">
                     <ion-label position="floating">Adresse</ion-label>
                      <Field name='adress' v-slot="{ field }">
                 <ion-input id="adress"
@@ -68,13 +69,13 @@
                            v-bind="field"
                 ></ion-input>
                      </Field>
-                     <ion-badge color="danger"><ErrorMessage name ='adress'/></ion-badge>
                     </ion-item>
+                    <ion-text color="danger">{{errors.adress}}</ion-text>
                 </ion-col>
             </ion-row>
             <ion-row class="ion-justify-content-center">
                 <ion-col size-xl="6">
-                    <ion-item>
+                    <ion-item :class="{'ion-invalid': errors.city}">
                      <Field name='city' v-slot="{ field }">
                     <ion-label position="floating">Ville</ion-label>
                 <ion-input id="city"
@@ -83,13 +84,13 @@
                            v-bind="field"
                 ></ion-input>
                      </Field>
-                     <ion-badge color="danger"><ErrorMessage name ='city'/></ion-badge>
                     </ion-item>
+                    <ion-text color="danger">{{errors.city}}</ion-text>
                 </ion-col>
             </ion-row>
             <ion-row class="ion-justify-content-center">
                 <ion-col size-xl="6">
-                    <ion-item>
+                    <ion-item :class="{'ion-invalid': errors.phone}">
                     <ion-label position="floating">Numéro de téléphone</ion-label>
                      <Field name='phone' v-slot="{ field }">
                 <ion-input
@@ -101,8 +102,8 @@
                         v-bind="field"
                 ></ion-input>
                      </Field>
-                     <ion-badge color="danger"><ErrorMessage name ='phone'/></ion-badge>
                     </ion-item>
+                    <ion-text color="danger">{{errors.phone}}</ion-text>
                 </ion-col>
             </ion-row>
            <ion-button expand="block" type="submit">Valider</ion-button>
@@ -112,32 +113,27 @@
 </template>
 
 <script lang="ts">
-import { IonLabel, IonInput,IonContent, IonGrid,IonDatetime,IonRow, IonCol, IonItem,IonBadge, IonButton } from '@ionic/vue';
+import { IonLabel, IonInput,IonContent, IonGrid,IonDatetime,IonRow, IonCol, IonItem, IonButton } from '@ionic/vue';
 import { defineComponent} from '@vue/runtime-core';
 import axios from "axios";
-import {ErrorMessage, Form, Field} from 'vee-validate';
+import {Form, Field} from 'vee-validate';
 import * as yup from 'yup';
 
     export default defineComponent({
-        components: { IonButton,IonItem, IonBadge, IonLabel, IonInput, IonContent,IonGrid,IonDatetime,IonRow,IonCol,ErrorMessage, Form, Field},
+        components: { IonButton,IonItem, IonLabel, IonInput, IonContent,IonGrid,IonDatetime,IonRow,IonCol, Form, Field},
         data: () => {
-            
-            
-
             const schema = yup.object({
                 firstname: yup.string().required('Merci de remplir ce champ'),
                 name :yup.string().required('Merci de remplir ce champ'),
                 birthDay: yup.date().required('Merci de remplir ce champ'),
                 adress: yup.string().required('Merci de remplir ce champ'),
-                city: yup.string().required('Merci de remplir ce champ').min(9),
+                city: yup.string().required('Merci de remplir ce champ').min(9,"Merci d'entrer 9 charactères minimum"),
                 phone: yup.string(),
             })
-            
             return {
                 schema,
             };
         },
-        
         methods: {
             submit()  {
                 const dataPost = {
