@@ -113,15 +113,16 @@
 </template>
 
 <script lang="ts">
-import { IonLabel, IonInput,IonContent, IonGrid,IonDatetime,IonRow, IonCol, IonItem, IonButton } from '@ionic/vue';
+import { IonLabel, IonInput,IonContent, IonGrid,IonDatetime,IonRow, IonCol, IonItem, IonButton, IonText } from '@ionic/vue';
 import { defineComponent} from '@vue/runtime-core';
 import axios from "axios";
 import {Form, Field} from 'vee-validate';
 import * as yup from 'yup';
 
     export default defineComponent({
-        components: { IonButton,IonItem, IonLabel, IonInput, IonContent,IonGrid,IonDatetime,IonRow,IonCol, Form, Field},
+        components: { IonButton,IonItem, IonLabel, IonInput, IonContent,IonGrid,IonDatetime,IonRow,IonCol, Form, Field, IonText},
         data: () => {
+            
             const schema = yup.object({
                 firstname: yup.string().required('Merci de remplir ce champ'),
                 name :yup.string().required('Merci de remplir ce champ'),
@@ -135,15 +136,16 @@ import * as yup from 'yup';
             };
         },
         methods: {
-            submit()  {
+            submit(values: any)  {
                 const dataPost = {
-    "name":"coley",
-    "firstname": "christian",
-    "birthDay": "2021-10-14",
-    "adress":"118 ch du bassard",
-    "city":"chonas l'amballan",
-    "phone":"0650279253"
+    "name":values.name,
+    "firstname": values.firstname,
+    "birthDay": values.birthDay,
+    "adress":values.adress,
+    "city":values.city,
+    "phone":values.phone
 }
+console.log(dataPost)
                 axios
   .post('https://127.0.0.1:8000/user', dataPost)
   .then(response => (console.log(response)))
