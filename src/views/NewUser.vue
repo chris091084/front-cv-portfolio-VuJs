@@ -128,7 +128,7 @@ import * as yup from 'yup';
                 name :yup.string().required('Merci de remplir ce champ'),
                 birthDay: yup.date().required('Merci de remplir ce champ'),
                 adress: yup.string().required('Merci de remplir ce champ'),
-                city: yup.string().required('Merci de remplir ce champ').min(9,"Merci d'entrer 9 charactères minimum"),
+                city: yup.string().required('Merci de remplir ce champ').min(2,"Merci d'entrer 2 charactères minimum"),
                 phone: yup.string(),
             })
             return {
@@ -140,14 +140,14 @@ import * as yup from 'yup';
                 const dataPost = {
     "name":values.name,
     "firstname": values.firstname,
-    "birthDay": values.birthDay,
+    "birthday": values.birthDay,
     "adress":values.adress,
     "city":values.city,
-    "phone":values.phone
+    "phoneNumber":values.phone
 }
 console.log(dataPost)
                 axios
-  .post('https://127.0.0.1:8000/user', dataPost)
+  .post('http://127.0.0.1:8080/newUser', dataPost)
   .then(response => (console.log(response)))
                 
             }
