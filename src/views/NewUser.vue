@@ -43,9 +43,9 @@
                 <ion-col size-xl="6">
                     
                     <ion-item :class="{'ion-invalid': errors.birthDay}">
-                     <Field name='birthDay' v-slot="{ field }">
+                     <Field name='birthday' v-slot="{ field }">
                          <ion-label position="floating">Date de naissance</ion-label>
-                    <ion-datetime id="birthDay"
+                    <ion-datetime id="birthday"
                                type="date"
                                name="birthday"
                                   display-format="D-M-YYYY"
@@ -92,7 +92,7 @@
                 <ion-col size-xl="6">
                     <ion-item :class="{'ion-invalid': errors.phone}">
                     <ion-label position="floating">Numéro de téléphone</ion-label>
-                     <Field name='phone' v-slot="{ field }">
+                     <Field name='phoneNumber' v-slot="{ field }">
                 <ion-input
                         placeholder="0650..."
                         id="phone"
@@ -118,6 +118,7 @@ import { defineComponent} from '@vue/runtime-core';
 import axios from "axios";
 import {Form, Field} from 'vee-validate';
 import * as yup from 'yup';
+import {User} from 'src/Model/User';
 
     export default defineComponent({
         components: { IonButton,IonItem, IonLabel, IonInput, IonContent,IonGrid,IonDatetime,IonRow,IonCol, Form, Field, IonText},
@@ -126,7 +127,7 @@ import * as yup from 'yup';
             const schema = yup.object({
                 firstname: yup.string().required('Merci de remplir ce champ'),
                 name :yup.string().required('Merci de remplir ce champ'),
-                birthDay: yup.date().required('Merci de remplir ce champ'),
+                birthday: yup.date().required('Merci de remplir ce champ'),
                 adress: yup.string().required('Merci de remplir ce champ'),
                 city: yup.string().required('Merci de remplir ce champ').min(2,"Merci d'entrer 2 charactères minimum"),
                 phone: yup.string(),
@@ -136,19 +137,12 @@ import * as yup from 'yup';
             };
         },
         methods: {
-            submit(values: any)  {
-                const dataPost = {
-    "name":values.name,
-    "firstname": values.firstname,
-    "birthday": values.birthDay,
-    "adress":values.adress,
-    "city":values.city,
-    "phoneNumber":values.phone
-}
-console.log(dataPost)
+            submit(values: User)  {
+
+                const newUser = values 
                 axios
-  .post('http://127.0.0.1:8080/newUser', dataPost)
-  .then(response => (console.log(response)))
+  .post('http://127.0.0.1:8080/newUser', values)
+  .then(response => (response))
                 
             }
         },
