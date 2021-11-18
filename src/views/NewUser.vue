@@ -149,8 +149,11 @@ import {User} from 'src/Model/User';
                 const newUser = values 
                 axios
   .post('http://127.0.0.1:8080/newUser', values)
-  .then(response => (response))
-  this.loading = false
+  .then(response => (console.log(response)))
+  .finally(() => 
+      this.loading = false
+      )
+  
                 
             }
         },
