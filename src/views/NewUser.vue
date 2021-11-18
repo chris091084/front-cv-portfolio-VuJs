@@ -106,14 +106,17 @@
                     <ion-text color="danger">{{errors.phone}}</ion-text>
                 </ion-col>
             </ion-row>
-           <ion-button expand="block" type="submit">Valider</ion-button>
+           <ion-button  :disabled="loading === true"  expand="block" type="submit"><div v-if='loading === false'>Valider</div><ion-spinner v-if='loading' name="lines" color="light"></ion-spinner></ion-button>
+          
         </ion-grid>
         </form>
+          
     </ion-content>
+    
 </template>
 
 <script lang="ts">
-import { IonLabel, IonInput,IonContent, IonGrid,IonDatetime,IonRow, IonCol, IonItem, IonButton, IonText } from '@ionic/vue';
+import { IonLabel, IonInput,IonContent, IonGrid,IonDatetime,IonRow, IonCol, IonItem, IonButton, IonText,IonSpinner } from '@ionic/vue';
 import { defineComponent} from '@vue/runtime-core';
 import axios from "axios";
 import {Form, Field} from 'vee-validate';
@@ -121,7 +124,7 @@ import * as yup from 'yup';
 import {User} from 'src/Model/User';
 
     export default defineComponent({
-        components: { IonButton,IonItem, IonLabel, IonInput, IonContent,IonGrid,IonDatetime,IonRow,IonCol, Form, Field, IonText},
+        components: { IonButton,IonItem, IonLabel, IonInput, IonContent,IonGrid,IonDatetime,IonRow,IonCol, Form, Field, IonText, IonSpinner},
         data: () => {
             
             const schema = yup.object({
@@ -132,17 +135,22 @@ import {User} from 'src/Model/User';
                 city: yup.string().required('Merci de remplir ce champ').min(2,"Merci d'entrer 2 charactères minimum"),
                 phone: yup.string(),
             })
+            const loading= false
             return {
                 schema,
+                loading
             };
         },
         methods: {
             submit(values: User)  {
+                this.loading = true
+                
 
                 const newUser = values 
                 axios
   .post('http://127.0.0.1:8080/newUser', values)
   .then(response => (response))
+  this.loading = false
                 
             }
         },
