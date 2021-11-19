@@ -1,5 +1,3 @@
-import { string } from "yup";
-
 export class User{
     constructor(
         public name: string,

@@ -1,5 +1,6 @@
 <template>
     <ion-content fullscreen>
+<Menu></Menu>
         <Form
             id="newUser"
             @submit="submit"
@@ -138,9 +139,10 @@ import axios from "axios";
 import {Form, Field} from 'vee-validate';
 import * as yup from 'yup';
 import {User} from 'src/Model/User';
+import Menu from '@/components/Menu.vue';
 
     export default defineComponent({
-        components: { IonButton,IonItem, IonLabel, IonInput, IonContent,IonGrid,IonDatetime,IonRow,IonCol, Form, Field, IonText, IonSpinner},
+        components: { IonButton,IonItem, IonLabel, IonInput, IonContent,IonGrid,IonDatetime,IonRow,IonCol, Form, Field, IonText, IonSpinner, Menu},
         data: () => {
             
             const schema = yup.object({
