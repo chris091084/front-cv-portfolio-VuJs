@@ -58,6 +58,22 @@
                     <ion-text color="danger">{{errors.birthDay}}</ion-text>
                 </ion-col>
             </ion-row>
+             <ion-row class="ion-justify-content-center">
+                <ion-col size-xl="6">
+                    
+                    <ion-item :class="{'ion-invalid': errors.email}">
+                     <Field name='email' v-slot="{ field }">
+                         <ion-label position="floating">E-mail</ion-label>
+                    <ion-input id="email"
+                               type="email"
+                               name="email"
+                                  v-bind="field"
+                    ></ion-input>
+                     </Field>
+                    </ion-item>
+                    <ion-text color="danger">{{errors.email}}</ion-text>
+                </ion-col>
+            </ion-row>
             <ion-row class="ion-justify-content-center">
                 <ion-col size-xl="6">
                     <ion-item :class="{'ion-invalid': errors.adress}">
@@ -131,6 +147,7 @@ import {User} from 'src/Model/User';
                 firstname: yup.string().required('Merci de remplir ce champ'),
                 name :yup.string().required('Merci de remplir ce champ'),
                 birthday: yup.date().required('Merci de remplir ce champ'),
+                email: yup.string().required('Merci de remplir ce champ').email('Merci de respecter le format mail ex:chris@hotmail.com'),
                 adress: yup.string().required('Merci de remplir ce champ'),
                 city: yup.string().required('Merci de remplir ce champ').min(2,"Merci d'entrer 2 charactères minimum"),
                 phone: yup.string(),
