@@ -1,5 +1,12 @@
 # **CV-Portfolio **FRONT****
 
+## Technologies
+
+- VueJs 3.2.1
+- ionic 5.4
+- node 10.19
+
+
 ## library
 
 axios
@@ -13,5 +20,6 @@ Veevalidate & Yup
 
 ## How run the project
 Run the following command
-
-`npm install`
+- install node : `sudo apt install nodejs:10`
+- install npm : `sudo apt install npm`
+- `npm install`
