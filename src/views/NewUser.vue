@@ -41,7 +41,6 @@
             </ion-row>
             <ion-row class="ion-justify-content-center">
                 <ion-col size-xl="6">
-                    
                     <ion-item :class="{'ion-invalid': errors.birthDay}">
                      <Field name='birthday' v-slot="{ field }">
                          <ion-label position="floating">Date de naissance</ion-label>
@@ -122,6 +121,38 @@
                     <ion-text color="danger">{{errors.phone}}</ion-text>
                 </ion-col>
             </ion-row>
+             <ion-row class="ion-justify-content-center">
+                <ion-col size-xl="6">
+                    <ion-item :class="{'ion-invalid': errors.password}">
+                    <ion-label position="floating">Mot de passe</ion-label>
+                     <Field name='password' v-slot="{ field }">
+                <ion-input
+                        id="password"
+                        type="password"
+                        name="password"
+                        v-bind="field"
+                ></ion-input>
+                     </Field>
+                    </ion-item>
+                    <ion-text color="danger">{{errors.password}}</ion-text>
+                </ion-col>
+            </ion-row>
+             <ion-row class="ion-justify-content-center">
+                <ion-col size-xl="6">
+                    <ion-item :class="{'ion-invalid': errors.repeatPassword}">
+                    <ion-label position="floating">confirmation de mot de passe</ion-label>
+                     <Field name='repeatPassword' v-slot="{ field }">
+                <ion-input
+                        id="repeatPassword"
+                        type="repeatPassword"
+                        name="repeatPassword"
+                        v-bind="field"
+                ></ion-input>
+                     </Field>
+                    </ion-item>
+                    <ion-text color="danger">{{errors.repeatPassword}}</ion-text>
+                </ion-col>
+            </ion-row>
            <ion-button  :disabled="loading === true"  expand="block" type="submit"><div v-if='loading === false'>Valider</div><ion-spinner v-if='loading' name="lines" color="light"></ion-spinner></ion-button>
           
         </ion-grid>
@@ -151,6 +182,8 @@ import {User} from 'src/Model/User';
                 adress: yup.string().required('Merci de remplir ce champ'),
                 city: yup.string().required('Merci de remplir ce champ').min(2,"Merci d'entrer 2 charactères minimum"),
                 phone: yup.string(),
+                password: yup.string().required('Merci de remplir ce champ').min(8,"minimum 8 charactères et chiffres"),
+                repeatPassword: yup.string().required('Merci de remplir ce champ').min(8,"minimum 8 charactères et chiffres").oneOf([yup.ref('password'), null], 'Le mot de passe n\'est pas identique au premier')
             })
             const loading= false
             return {
@@ -159,14 +192,13 @@ import {User} from 'src/Model/User';
             };
         },
         methods: {
-            submit(values: User)  {
+            submit(values: any)  {
+                delete values.repeatPassword;
                 this.loading = true
-                
-
-                const newUser = values 
+                const newUser = values
                 axios
-  .post('http://127.0.0.1:8080/newUser', values)
-  .then(response => (response))
+  .post('http://127.0.0.1:8080/signup', newUser)
+  .then(response => (console.log(response)))
   .finally(() => 
       this.loading = false
       )
