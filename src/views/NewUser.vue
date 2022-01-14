@@ -144,7 +144,7 @@
                      <Field name='repeatPassword' v-slot="{ field }">
                 <ion-input
                         id="repeatPassword"
-                        type="repeatPassword"
+                        type="password"
                         name="repeatPassword"
                         v-bind="field"
                 ></ion-input>
@@ -190,8 +190,8 @@ import {User} from 'src/Model/User';
                 adress: yup.string().required('Merci de remplir ce champ'),
                 city: yup.string().required('Merci de remplir ce champ').min(2,"Merci d'entrer 2 charactères minimum"),
                 phoneNumber: yup.string(),
-                password: yup.string().required('Merci de remplir ce champ').min(8,"minimum 8 charactères et chiffres"),
-                repeatPassword: yup.string().required('Merci de remplir ce champ').min(8,"minimum 8 charactères et chiffres").oneOf([yup.ref('password'), null], 'Le mot de passe n\'est pas identique au premier')
+                password: yup.string().required('Merci de remplir ce champ').matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,'Le mot depase doit contenir au moins une lettre, un chriffre et un charactère spécial'),
+                repeatPassword: yup.string().required('Merci de remplir ce champ').min(8,"minimum 8 charactères et/ou chiffres").oneOf([yup.ref('password'), null], 'Le mot de passe n\'est pas identique au premier').matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,'Le mot depase doit contenir au moins une lettre, un chriffre et un charactère spécial')
             })
             const loading= false;
              const isOpenRef = ref(false);
