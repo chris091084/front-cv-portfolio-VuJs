@@ -9,7 +9,8 @@ export class User{
         public email: string,
         public adress: string,
         public city: string,
-        public phoneNumber: string
+        public phoneNumber: string,
+        public password: string,
     ){}
 
    
